@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
+import helmet from "helmet";
+import ExpressMongoSanitize from "express-mongo-sanitize";
 
 import authRouter from "./routes/authRouter.js";
 import productRouter from "./routes/productRouter.js";
@@ -22,6 +24,8 @@ mongoose
   });
 
 app.use(express.json());
+app.use(helmet());
+app.use(ExpressMongoSanitize());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
